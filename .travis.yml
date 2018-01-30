@@ -16,7 +16,7 @@ branches:
  only:
   - development
 
-before_install: openssl aes-256-cbc -K $encrypted_13f2ac930827_key -iv $encrypted_13f2ac930827_iv -in github_deploy_key.enc -out github_deploy_key -d
+before_install: openssl aes-256-cbc -K $encrypted_13f2ac930827_key -iv $encrypted_13f2ac930827_iv -in .travis/github_deploy_key.enc -out github_deploy_key -d
 
 install: true
 
