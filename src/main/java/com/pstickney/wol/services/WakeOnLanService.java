@@ -7,14 +7,14 @@ import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.util.List;
 
-public class WakeOnLanService 
+public class WakeOnLanService
 {
     public WakeOnLanService()
     {
-        
+
     }
-    
-    public void wake(String broadcastAddress, String port, List<String> macAddresses) throws Exception 
+
+    public void wake(String broadcastAddress, String port, List<String> macAddresses) throws Exception
     {
         int intPort = Integer.parseInt(port);
 

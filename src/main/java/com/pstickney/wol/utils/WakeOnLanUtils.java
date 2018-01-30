@@ -2,7 +2,7 @@ package com.pstickney.wol.utils;
 
 import java.io.InvalidObjectException;
 
-public class WakeOnLanUtils 
+public class WakeOnLanUtils
 {
     public static String btos(byte[] bytes)
     {
@@ -23,7 +23,7 @@ public class WakeOnLanUtils
         return (byte) Integer.parseInt(str, 16);
     }
 
-    public static byte[] parseMAC(String str) throws InvalidObjectException 
+    public static byte[] parseMAC(String str) throws InvalidObjectException
     {
         byte[] bytes = new byte[6];
         String[] split = str.split("(\\:|\\-)");
