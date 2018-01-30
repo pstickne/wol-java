@@ -1,0 +1,25 @@
+sudo: false
+
+env:
+ global:
+  - secure: "STLXyoVYdsDjURZJk48Jyk2BmyyDt9tIL+WagJxKGBYQu2IZxYxYYmx+mrmfYtcFVepXDAnJ/UOM1nPWLls4di3BVae99dYjjmVx1+8tKkDY52YSJxHe2sqoUUH8UipvXkmskYW6FQ98k/uVSjZ52fS8mtzl9zswK1vXwupmKsMjkGs9OyD9lm7yfKBsBRawUg61kXLcBdryWN3UPxAgpKVi8vaSTwjPKIUfsHy0TqTGRqEkVPxncftEfZO7zHlmfBaW2orue73Ue2VFXVtZsZQt+ip0xCOk0PWTWXioQI2ERE7Vy8oiEJgYRsiCeTwCJv53lWwjl8JzNopiIfIwNafqZUmxK0NwoL54GeeRJjVdKo5uER1LuX4CSJAMIfoSTaMfKZro3yq0B5AeAgIjTH04JWv1TIMx5ioL9Bc/67aN9DauhWpiejVqcO6Gg95Fad0kxxShf3rdmmMyAv1NIpaCX31H1oJJwZ1QXARedLZ+HyX5CfmiigmvF5eH0sUSts7xG4b+hfqIjmEz4srTVKF03/3oL67lUeiGpI2hIMDRLJqyfVpWTJ+pVxsU7auNl1wOyhHabCvfi/Zfyv0+iFp9FkWIAoTajkcZez/gFjQfTvkJkQhk+K0BeIzzSEGHlQCFcQPRrcJozRFJ1FFgzOiYyGWwpjyCT5MeQDDtI2Q="
+
+language: java
+
+jdk:
+ - oraclejdk8
+
+notifications:
+ email: false
+
+branches:
+ only:
+  - development
+
+before_install: openssl aes-256-cbc -K $encrypted_13f2ac930827_key -iv $encrypted_13f2ac930827_iv -in github_deploy_key.enc -out github_deploy_key -d
+
+install: true
+
+script: mvn clean install
+
+after_success: ".travis/push.sh"
