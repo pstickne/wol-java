@@ -81,11 +81,11 @@ public class WakeOnLanCLI
         HelpFormatter formatter = new HelpFormatter();
         String header =
                 "\nWake-on-LAN (WoL) is an ethernet standard that allows a computer to be turned on by a network message. " +
-                        "WoL is implemented using a specially designed frame called a magic packet, which is sent to all computer " +
-                        "in a network, among them the computer to be awakened.\n" +
-                        "The magic packet is a broadcast frame containing anywhere within its payload, 6 bytes of 0xFF followed by " +
-                        "sixteen repetitions of the target computer's 48-bit MAC address, for a total of 102 bytes.\n\n" +
-                        "Options:";
+                "WoL is implemented using a specially designed frame called a magic packet, which is sent to all computer " +
+                "in a network, among them the computer to be awakened.\n" +
+                "The magic packet is a broadcast frame containing anywhere within its payload, 6 bytes of 0xFF followed by " +
+                "sixteen repetitions of the target computer's 48-bit MAC address, for a total of 102 bytes.\n\n" +
+                "Options:";
         formatter.printHelp(80,"WakeOnLan [[MAC ...]", header, options, "",true);
     }
 }
