@@ -1,6 +1,9 @@
 package com.pstickney.wol.utils;
 
-import java.io.InvalidObjectException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.security.InvalidParameterException;
+import java.util.Enumeration;
 
 public class WakeOnLanUtils
 {
@@ -23,17 +26,34 @@ public class WakeOnLanUtils
         return (byte) Integer.parseInt(str, 16);
     }
 
-    public static byte[] parseMAC(String str) throws InvalidObjectException
+    public static byte[] parseMAC(String str) throws InvalidParameterException
     {
         byte[] bytes = new byte[6];
         String[] split = str.split("(\\:|\\-)");
 
         if( split.length != 6 )
-            throw new InvalidObjectException("Invalid MAC Address");
+            throw new InvalidParameterException("Cannot parse MAC address " + str);
 
         for (int i = 0; i < 6; i++)
             bytes[i] = stob(split[i]);
 
         return bytes;
+    }
+
+    public static InetAddress getLANAddress() throws Exception
+    {
+        Enumeration nics = NetworkInterface.getNetworkInterfaces();
+        while( nics.hasMoreElements() )
+        {
+            NetworkInterface nic = (NetworkInterface) nics.nextElement();
+            Enumeration addresses = nic.getInetAddresses();
+            while( addresses.hasMoreElements() )
+            {
+                InetAddress address = (InetAddress) addresses.nextElement();
+                if( !address.isLinkLocalAddress() && !address.isLoopbackAddress() && address.isSiteLocalAddress() )
+                    return address;
+            }
+        }
+        return null;
     }
 }
