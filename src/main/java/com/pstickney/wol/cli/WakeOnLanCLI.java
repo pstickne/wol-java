@@ -8,13 +8,13 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.InvalidParameterException;
 
 public class WakeOnLanCLI
 {
     private static Options options = null;
     private static CommandLine cmd = null;
     private static CommandLineParser parser = null;
-    private static WakeOnLanService service = null;
 
     public static void main(String ...args)
     {
@@ -51,10 +51,11 @@ public class WakeOnLanCLI
         String port = cmd.getOptionValue("p", "9");
 
         try {
-            service = new WakeOnLanService();
-            service.wake(broadcastAddress, port, cmd.getArgList());
-        } catch (Exception e) {
-            e.printStackTrace();
+            WakeOnLanService.wake(broadcastAddress, port, cmd.getArgList());
+        } catch (InvalidParameterException e) {
+            e.printStackTrace(System.err);
+        } catch (IOException e) {
+            e.printStackTrace(System.err);
         }
     }
 

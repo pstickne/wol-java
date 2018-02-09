@@ -2,19 +2,26 @@ package com.pstickney.wol.services;
 
 import com.pstickney.wol.utils.WakeOnLanUtils;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 import java.util.List;
 
 public class WakeOnLanService
 {
-    public WakeOnLanService()
+    public static void wake(String macAddress) throws IOException
     {
-
+        wake(Arrays.asList(macAddress));
     }
 
-    public void wake(String broadcastAddress, String port, List<String> macAddresses) throws Exception
+    public static void wake(List<String> macAddresses) throws IOException
+    {
+        wake("255.255.255.255", "9", macAddresses);
+    }
+
+    public static void wake(String broadcastAddress, String port, List<String> macAddresses) throws IOException
     {
         int intPort = Integer.parseInt(port);
 
@@ -26,7 +33,7 @@ public class WakeOnLanService
         }
     }
 
-    private byte[] createDatagram(byte[] macAddress)
+    private static byte[] createDatagram(byte[] macAddress)
     {
         int i;
         byte[] bytes = new byte[6 + 16 * macAddress.length];
@@ -40,20 +47,13 @@ public class WakeOnLanService
         return bytes;
     }
 
-    private void sendPacket(String address, int port, byte[] mac, byte[] data)
+    private static void sendPacket(String address, int port, byte[] mac, byte[] data) throws IOException
     {
-        try {
-            InetSocketAddress inet = new InetSocketAddress(address, port);
-            DatagramPacket packet = new DatagramPacket(data, data.length, inet);
-            DatagramSocket socket = new DatagramSocket();
-            socket.setBroadcast(true);
-            socket.send(packet);
-            socket.close();
-
-            System.out.println("WakeOnLan packet sent to " + WakeOnLanUtils.btos(mac));
-        } catch (Exception e) {
-            System.out.println("Failed to send WakeOnLan packet: + e");
-            System.exit(1);
-        }
+        InetSocketAddress inet = new InetSocketAddress(address, port);
+        DatagramPacket packet = new DatagramPacket(data, data.length, inet);
+        DatagramSocket socket = new DatagramSocket();
+        socket.setBroadcast(true);
+        socket.send(packet);
+        socket.close();
     }
 }
