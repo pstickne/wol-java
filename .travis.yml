@@ -26,3 +26,4 @@ script:
 after_success:
  - chmod +x .travis/push.sh 
  - ".travis/push.sh"
+ - "rm github_deploy_key"
