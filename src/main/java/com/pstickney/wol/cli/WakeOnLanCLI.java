@@ -20,7 +20,10 @@ public class WakeOnLanCLI
     {
         options = new Options();
         options.addOption("h", "help", false, "Display help information");
-        options.addOption("v", "version", false, "Display version information");
+        options.addOption("v", null, false, "Display verbose output");
+        options.addOption("vv", null, false, "Display verbose level 2 output");
+        options.addOption("vvv", null, false, "Display verbose level 3 output");
+        options.addOption("V", "version", false, "Display version information");
         options.addOption("ip", "broadcast", true, "Broadcast IP address");
         options.addOption("p", "port", true, "Port");
 
@@ -36,7 +39,7 @@ public class WakeOnLanCLI
             System.exit(0);
         }
 
-        if( cmd.hasOption("v") ) {
+        if( cmd.hasOption("-version") ) {
             printVersion();
             System.exit(0);
         }
@@ -49,9 +52,14 @@ public class WakeOnLanCLI
 
         String broadcastAddress = cmd.getOptionValue("ip", "255.255.255.255");
         String port = cmd.getOptionValue("p", "9");
+        Integer verbosity = 0;
+        
+        if( cmd.hasOption("v") )        verbosity = 1;
+        else if( cmd.hasOption("vv") )  verbosity = 2;
+        else if( cmd.hasOption("vvv") ) verbosity = 3;
 
         try {
-            WakeOnLanService.wake(broadcastAddress, port, cmd.getArgList());
+            WakeOnLanService.wake(broadcastAddress, port, cmd.getArgList(), verbosity);
         } catch (InvalidParameterException e) {
             e.printStackTrace(System.err);
         } catch (IOException e) {

@@ -2,10 +2,9 @@ sudo: false
 
 env:
  global:
-  - secure: "STLXyoVYdsDjURZJk48Jyk2BmyyDt9tIL+WagJxKGBYQu2IZxYxYYmx+mrmfYtcFVepXDAnJ/UOM1nPWLls4di3BVae99dYjjmVx1+8tKkDY52YSJxHe2sqoUUH8UipvXkmskYW6FQ98k/uVSjZ52fS8mtzl9zswK1vXwupmKsMjkGs9OyD9lm7yfKBsBRawUg61kXLcBdryWN3UPxAgpKVi8vaSTwjPKIUfsHy0TqTGRqEkVPxncftEfZO7zHlmfBaW2orue73Ue2VFXVtZsZQt+ip0xCOk0PWTWXioQI2ERE7Vy8oiEJgYRsiCeTwCJv53lWwjl8JzNopiIfIwNafqZUmxK0NwoL54GeeRJjVdKo5uER1LuX4CSJAMIfoSTaMfKZro3yq0B5AeAgIjTH04JWv1TIMx5ioL9Bc/67aN9DauhWpiejVqcO6Gg95Fad0kxxShf3rdmmMyAv1NIpaCX31H1oJJwZ1QXARedLZ+HyX5CfmiigmvF5eH0sUSts7xG4b+hfqIjmEz4srTVKF03/3oL67lUeiGpI2hIMDRLJqyfVpWTJ+pVxsU7auNl1wOyhHabCvfi/Zfyv0+iFp9FkWIAoTajkcZez/gFjQfTvkJkQhk+K0BeIzzSEGHlQCFcQPRrcJozRFJ1FFgzOiYyGWwpjyCT5MeQDDtI2Q="
+  secure: "YnX1sBgUnT5u6LZs6PmFHquLjm5YVgJI5pN1cjeiBgJDHYCk04vm0XvbWPYKNbmpT2Pn0dfTeWh380wFfFCJzHmdq2u0AP/ovMOWUVYUsnKhdzkcD1wbg+6qz6MyZMX1rAM9XRdErz8110UPK/YpfHJJc9dcpLRlEXPIx87qjcO3a/z9cO6JNBffgX37qkJ+zIQe+UtGQUhsixbuE1cpQilI5CJiYiD8tM6n75UmOYF9+V6bDhu588MmijlofOBwMh+KvOOr/5pdPiK84w6JcNVsISxFbBGBqnQTt9WJ8zieQkfj5/fcYIYGjLMgtsJDN/jfKnVhsA3fOyuSimcodlgYTPQMiJcvQSlVA5xAQNVuUdp6zhO5Z8jPXGP1FMJuIwgL4xx4ke0XhinLiTccmDLwKH+SBLot1SLkWLu4Bs027rPjvdZv7U4+xLeiEQAPbhf6wqZxDaOHu32bcvUS5KfU+taj2KETHuAOXdYu7v3TwUBMZT2G8EF+r2xgdc8YxH/qgr15ROE0NtDkdNlCplSKFiQoVHy/+ZPcVxZKxOWbtkpgNzwgRG8v4Wu2ejapIYNbCYRjj3XI48HHsuO7sTcCN5L545zwnnJfUpN6GgjIUtk7qfTkoGQX1lMcsY+Qk+Myc7sDUxqJd7tKERh8XmqN4QOKn70DZPovFbd/Vbc="
 
 language: java
-
 jdk:
  - oraclejdk8
 
@@ -16,10 +15,11 @@ branches:
  only:
   - development
 
-before_install: openssl aes-256-cbc -K $encrypted_13f2ac930827_key -iv $encrypted_13f2ac930827_iv -in .travis/github_deploy_key.enc -out github_deploy_key -d
-
 install: true
 
-script: mvn clean install
+script: 
+ - mvn clean install
 
-after_success: ".travis/push.sh"
+after_success:
+ - chmod +x .travis/push.sh 
+ - ".travis/push.sh"
