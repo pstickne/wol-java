@@ -4,4 +4,3 @@ target/
 *.ipr
 *.iws
 dependency-reduced-pom.xml
-./github_deploy_key
