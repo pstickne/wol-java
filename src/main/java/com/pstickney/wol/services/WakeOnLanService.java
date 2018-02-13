@@ -84,8 +84,8 @@ public class WakeOnLanService
         if( verbosity > 0 )
             System.out.println("Broadcasting datagram packet");
         
-//        socket.setBroadcast(true);
-//        socket.send(packet);
+        socket.setBroadcast(true);
+        socket.send(packet);
         
         if( verbosity > 2 )
             System.out.println("Closing datagram socket");
